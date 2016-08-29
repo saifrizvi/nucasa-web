@@ -1,4 +1,6 @@
 var propertyId =0;
+//var baseurl = 'http://localhost:8080';
+var baseurl = 'http://nookcasa-env.us-west-2.elasticbeanstalk.com';
 
 function test(id){
 	//alert(id);
@@ -15,13 +17,13 @@ function getParameter(param) {
 var app = angular.module('nookcasaBid', []);
 app.controller('propertyDetailsController', function($scope, $http) {
 	getParameter("propertyId");
-	var url1 = 'http://localhost:8080/propertyDetails/' + propertyId;
+	var url1 = baseurl+'/propertyDetails/' + propertyId;
 	// alert(url1);
 	$http.get(url1).then(function(response) {
 		$scope.propertyDetails = response.data;
 	});
 
-	var url2 = 'http://localhost:8080/maxBidPrice/' + propertyId;
+	var url2 = baseurl+'/maxBidPrice/' + propertyId;
 	// alert(url2);
 	$http.get(url2).then(function(response) {
 		$scope.maxBidPrice = response.data;
@@ -32,7 +34,7 @@ app.controller('propertyDetailsController', function($scope, $http) {
 		//var queryParams = '?propertyId='+propertyId+'&price='+$scope.bid.bidPrice+'&userId=+'$scope.bid.userId+'&proposal='+$scope.bid.proposal;
 		//var url3 = 'http://localhost:8080/maxBidPrice/registerBid'+queryParams;
 		//alert(url3);
-		var url3 = 'http://localhost:8080/registerBid?propertyId='+propertyId+'&price='+$scope.bid.bidPrice+'&userId='+$scope.bid.userId+'&proposal='+$scope.bid.proposal;
+		var url3 = baseurl+'/registerBid?propertyId='+propertyId+'&price='+$scope.bid.bidPrice+'&userId='+$scope.bid.userId+'&proposal='+$scope.bid.proposal;
 		$http.get(url3).then(function(response) {
 			$scope.bidresponse = response.data;
 			if($scope.bidresponse){
@@ -54,7 +56,7 @@ app.controller('propertyDetailsController', function($scope, $http) {
 
 var app = angular.module('nookcasaMain', []);
 app.controller('propertiesListController', function($scope, $http) {
-  $http.get("http://localhost:8080/properties")
+  $http.get(baseurl+"/properties")
   .then(function(response) {
       $scope.properties = response.data;
   });
